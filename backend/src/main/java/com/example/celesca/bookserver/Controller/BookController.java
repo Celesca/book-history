@@ -10,12 +10,13 @@ import java.util.List;
 public class BookController {
 
     private final List<Book> books = List.of(
-        new Book("The Great Gatsby", "F. Scott Fitzgerald", "https://images-na.ssl-images-amazon.com/images/I/51Z6Zzq9OEL._SX331_BO1,204,203,200_.jpg"),
-        new Book("To Kill a Mockingbird", "Harper Lee", "https://images-na.ssl-images-amazon.com/images/I/51Z6Zzq9OEL._SX331_BO1,204,203,200_.jpg")
+        new Book("The Great Gatsby", "F. Scott Fitzgerald", "https://images-na.ssl-images-amazon.com/images/I/51Z6Zzq9OEL._SX331_BO1,204,203,200_.jpg")
     );
 
-    @GetMapping("/books")
+    @GetMapping("/api/books")
     public List<Book> getAllBooks() {
-        return books;
+        for (Book book : books) {
+            return books;
+        }
     }
 }
