@@ -21,8 +21,7 @@ public class BookController {
     );
 
     @GetMapping("/api/books")
-    public List<Book> getAllBooks() {
-        String result = bookService.GetBooks();
-        return result;
+    public String getAllBooks() {
+        return bookService.GetBooks();
     }
 }
