@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: book
+    restart: on-failure
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./migration/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - book-network
+  book-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: on-failure
+    ports:
+      - "8080:8080"
+    depends_on:
+        - db
+    networks:
+        - book-network
+    environment:
+        SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/book
+        SPRING_DATASOURCE_USERNAME: postgres
+        SPRING_DATASOURCE_PASSWORD: password
+
+
+networks:
+  book-network:
+    driver: bridge
