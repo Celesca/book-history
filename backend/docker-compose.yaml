@@ -15,6 +15,23 @@ services:
       - ./migration/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - book-network
+  book-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: on-failure
+    ports:
+      - "8080:8080"
+    depends_on:
+        - db
+    networks:
+        - book-network
+    environment:
+        SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/book
+        SPRING_DATASOURCE_USERNAME: postgres
+        SPRING_DATASOURCE_PASSWORD: password
+
+
 networks:
   book-network:
     driver: bridge
