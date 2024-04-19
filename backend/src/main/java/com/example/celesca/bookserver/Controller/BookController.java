@@ -1,13 +1,11 @@
 package com.example.celesca.bookserver.Controller;
 
 import com.example.celesca.bookserver.Model.Book;
+import com.example.celesca.bookserver.Request.BookRequestDto;
 import com.example.celesca.bookserver.Service.BookService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,7 +26,8 @@ public class BookController {
 
     @PostMapping("/api/books")
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Book addBook(@Valid Book bookRequestBody) {
+    public Book addBook(@Valid @RequestBody BookRequestDto bookRequestBody) {
+        System.out.println(bookRequestBody);
         return bookService.AddBook(bookRequestBody);
     }
 }

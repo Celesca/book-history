@@ -2,6 +2,7 @@ package com.example.celesca.bookserver.Service;
 
 import com.example.celesca.bookserver.Model.Book;
 import com.example.celesca.bookserver.Repository.BookRepository;
+import com.example.celesca.bookserver.Request.BookRequestDto;
 import com.example.celesca.bookserver.exception.BadRequestException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -21,12 +22,14 @@ public class BookService {
         return bookRepository.findAll();
     }
 
-    @Transactional
-    public Book AddBook(Book bookRequestBody) {
+    public Book AddBook(BookRequestDto bookRequestBody) {
         if (bookRequestBody.getTitle().trim().isEmpty()) {
             throw new BadRequestException("Title cannot be empty");
         }
-        bookRepository.save(bookRequestBody);
-        return bookRequestBody;
+
+        Book book = new Book(bookRequestBody.getTitle(), bookRequestBody.getAuthor(), bookRequestBody.getImage());
+
+        bookRepository.save(book);
+        return book;
     }
 }
