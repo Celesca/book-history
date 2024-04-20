@@ -1,19 +1,24 @@
 import React from 'react'
 
-interface User {
-    id: number;
-    name: string;
+interface Book {
+    title: string;
+    author: string;
+    image: string;
 }
 
 const UsersPage = async () => {
-    const res = await fetch('https://jsonplaceholder.typicode.com/users', { next: { revalidate: 10 }});
-    const users: User[] = await res.json();
+    const res = await fetch('http://localhost:8080/api/books', { next: { revalidate: 10 }});
+    const books: Book[] = await res.json();
 
   return (
     <>
         <h1>Users</h1>
         <ul>
-            {users.map(user => <li key={user.id}>{user.name}</li> )}
+            {books.map((book, index) => {
+                return (
+                    <li key={index}>{book.title}</li>
+                )
+            })}
         </ul>
     </>
   )

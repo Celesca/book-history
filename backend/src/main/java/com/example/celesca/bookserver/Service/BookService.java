@@ -4,7 +4,6 @@ import com.example.celesca.bookserver.Model.Book;
 import com.example.celesca.bookserver.Repository.BookRepository;
 import com.example.celesca.bookserver.Request.BookRequestDto;
 import com.example.celesca.bookserver.exception.BadRequestException;
-import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
