@@ -30,4 +30,16 @@ public class BookController {
         System.out.println(bookRequestBody);
         return bookService.AddBook(bookRequestBody);
     }
+
+    @PutMapping("/api/books/{id}")
+    @ResponseStatus(code = HttpStatus.OK)
+    public Book updateBook(@PathVariable Long id, @Valid @RequestBody BookRequestDto bookRequestBody) {
+        return bookService.UpdateBook(id, bookRequestBody);
+    }
+
+    @DeleteMapping("/api/books/{id}")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public String deleteBook(@PathVariable Long id) {
+        return bookService.DeleteBook(id);
+    }
 }

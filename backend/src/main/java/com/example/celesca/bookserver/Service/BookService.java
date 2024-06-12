@@ -7,6 +7,7 @@ import com.example.celesca.bookserver.exception.BadRequestException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookService {
@@ -30,5 +31,33 @@ public class BookService {
 
         bookRepository.save(book);
         return book;
+    }
+
+    public Book UpdateBook(Long id, BookRequestDto bookRequestBody) {
+        if (!bookRepository.existsById(id)) {
+            throw new BadRequestException("Book not found");
+        }
+
+        Optional<Book> optionalBook = bookRepository.findById(id);
+        if (optionalBook.isPresent()) {
+            Book book = optionalBook.get();
+            book.setTitle(bookRequestBody.getTitle());
+            book.setAuthor(bookRequestBody.getAuthor());
+            book.setImage(bookRequestBody.getImage());
+
+            // Save the updated book to the repository
+            return bookRepository.save(book);
+        } else {
+            throw new BadRequestException("Book not found");
+        }
+    }
+
+    public String DeleteBook(Long id) {
+
+        if (!bookRepository.existsById(id)) {
+            throw new BadRequestException("Book not found");
+        }
+        bookRepository.deleteById(id);
+        return "Book deleted successfully";
     }
 }
