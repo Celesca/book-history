@@ -31,4 +31,13 @@ public class BookService {
         bookRepository.save(book);
         return book;
     }
+
+    public String DeleteBook(Long id) {
+
+        if (!bookRepository.existsById(id)) {
+            throw new BadRequestException("Book not found");
+        }
+        bookRepository.deleteById(id);
+        return "Book deleted successfully";
+    }
 }

@@ -30,4 +30,10 @@ public class BookController {
         System.out.println(bookRequestBody);
         return bookService.AddBook(bookRequestBody);
     }
+
+    @DeleteMapping("/api/books/{id}")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public String deleteBook(@PathVariable Long id) {
+        return bookService.DeleteBook(id);
+    }
 }
